@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 154019736}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2720,6 +2720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  jumpForce: 4
+  maxJumps: 2
   countText: {fileID: 726633109}
   winTextObject: {fileID: 1090978112}
 --- !u!4 &1706078718 stripped
@@ -2861,7 +2863,7 @@ GameObject:
   - component: {fileID: 1991384845}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

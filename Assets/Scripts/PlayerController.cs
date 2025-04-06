@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
 
     public float speed = 0;
+    public float jumpForce = 5f;
+    public int maxJumps = 2;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
 
@@ -13,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private int count;
     private float movementX;
     private float movementY;
+    private int currentJumps;
+    private bool isGrounded;
 
     void Start()
     {
@@ -20,6 +24,8 @@ public class PlayerController : MonoBehaviour
         count = 0;
         SetCountText();
         winTextObject.SetActive(false);
+        currentJumps = 0;
+        isGrounded = true;
     }
 
     private void FixedUpdate()
@@ -47,6 +53,16 @@ public class PlayerController : MonoBehaviour
         movementY = movementVector.y;
     }
 
+    void OnJump(InputValue jumpValue)
+    {
+        if (currentJumps < maxJumps)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            currentJumps++;
+            isGrounded = false;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -54,6 +70,12 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
             winTextObject.gameObject.SetActive(true);
             winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            currentJumps = 0;
         }
     }
 
